@@ -1,0 +1,7 @@
+target/
+.metadata/
+.classpath
+.project
+.settings/
+.tycho-consumer-pom.xml
+*.log
