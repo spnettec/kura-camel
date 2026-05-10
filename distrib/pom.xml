@@ -59,8 +59,8 @@
     </organization>
 
     <properties>
-        <addon.installation.dir.level4s>/opt/eclipse/kura/plugins/4s</addon.installation.dir.level4s>
-        <addon.installation.dir.level5s>/opt/eclipse/kura/plugins/5s</addon.installation.dir.level5s>
+        <addon.installation.dir.level4s>/opt/eclipse/kura/siblings/camel/4s</addon.installation.dir.level4s>
+        <addon.installation.dir.level5s>/opt/eclipse/kura/siblings/camel/5s</addon.installation.dir.level5s>
 
         <!--
             Available DEB architectures:
