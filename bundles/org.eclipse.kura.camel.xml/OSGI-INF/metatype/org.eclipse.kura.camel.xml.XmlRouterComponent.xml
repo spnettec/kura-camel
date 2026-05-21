@@ -18,6 +18,12 @@
     &lt;/route&gt;&#10;
 &lt;/routes&gt;'/>
 
+        <AD id="xml.data.file" name="%xmlDataFile"
+            description="%xmlDataFileDesc"
+            type="String"
+            cardinality="1"
+            required="false"/>
+
 		<AD id="file.extension"  
             name="%dslName"
             type="String"
@@ -69,6 +75,12 @@
             cardinality="1"
             required="false"
             description="%initCodeDesc"/>
+
+        <AD id="initCode.file" name="%initCodeFile"
+            description="%initCodeFileDesc"
+            type="String"
+            cardinality="1"
+            required="false"/>
 
         <AD id="disableJmx"
             name="%disableJmx"

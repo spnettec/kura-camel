@@ -19,6 +19,8 @@ import static org.eclipse.kura.camel.runner.CamelRunner.createOsgiRegistry;
 import static org.eclipse.kura.camel.runner.ScriptRunner.create;
 import static org.osgi.framework.FrameworkUtil.getBundle;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,6 +33,7 @@ import javax.script.SimpleBindings;
 import org.eclipse.kura.camel.bean.PayloadFactory;
 import org.eclipse.kura.camel.component.AbstractXmlCamelComponent;
 import org.eclipse.kura.camel.component.Configuration;
+import org.eclipse.kura.camel.component.FileChangeWatcher;
 import org.eclipse.kura.camel.runner.CamelRunner.Builder;
 import org.eclipse.kura.camel.runner.ScriptRunner;
 import org.eclipse.kura.cloud.CloudService;
@@ -61,6 +64,7 @@ public class XmlRouterComponent extends AbstractXmlCamelComponent {
     private static final String LANGUAGE_PREREQS = "language.prereqs";
     private static final String DISABLE_JMX = "disableJmx";
     private static final String INIT_CODE = "initCode";
+    private static final String INIT_CODE_FILE = "initCode.file";
     private static final String SCRIPT_ENGINE_NAME = "scriptEngineName";
 
     private final BundleContext bundleContext;
@@ -70,6 +74,8 @@ public class XmlRouterComponent extends AbstractXmlCamelComponent {
 
     private Map<String, String> cloudServiceRequirements = new HashMap<>();
     private String initCode = "";
+    private String initCodeFilePath = "";
+    private volatile FileChangeWatcher initCodeFileWatcher;
     private String scriptEngineName = "";
 
     private Vertx vertx;
@@ -85,9 +91,74 @@ public class XmlRouterComponent extends AbstractXmlCamelComponent {
     @Override
     protected void stop() throws Exception {
         super.stop();
+        closeInitCodeFileWatcher();
         if (webClient != null) {
             webClient.close();
             webClient = null;
+        }
+    }
+
+    private void updateInitCodeFileWatcher() {
+        final String desired = this.initCodeFilePath;
+        final FileChangeWatcher current = this.initCodeFileWatcher;
+
+        if (desired == null || desired.isEmpty()) {
+            if (current != null) {
+                closeInitCodeFileWatcher();
+            }
+            return;
+        }
+
+        final String absoluteDesired = Paths.get(desired).toAbsolutePath().toString();
+        if (current != null && current.getAbsoluteFile().toString().equals(absoluteDesired)) {
+            return;
+        }
+
+        closeInitCodeFileWatcher();
+        try {
+            final FileChangeWatcher w = new FileChangeWatcher(desired, this::onInitCodeFileChanged);
+            w.start();
+            this.initCodeFileWatcher = w;
+        } catch (IOException e) {
+            logger.warn("Failed to start watcher for {}: {}", desired, e.getMessage());
+        }
+    }
+
+    private void closeInitCodeFileWatcher() {
+        final FileChangeWatcher w = this.initCodeFileWatcher;
+        if (w != null) {
+            w.close();
+            this.initCodeFileWatcher = null;
+        }
+    }
+
+    private void onInitCodeFileChanged() {
+        logger.info("Detected change to {}, re-running init script on current camel context",
+                this.initCodeFilePath);
+        // initCode is a JSR-223 Groovy/JS script that registers closures into the
+        // camel registry. Re-running it against the existing context re-binds those
+        // closures (last bind wins), which is what we want. No need to stop/start
+        // the camel context - and crucially, no Java DSL recompile is triggered.
+        final ClassLoader original = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(XmlRouterComponent.class.getClassLoader());
+            final org.apache.camel.CamelContext ctx = getCamelContext();
+            if (ctx == null) {
+                logger.warn("No camel context available, skipping initCode reload");
+                return;
+            }
+            final String fresh = Configuration.tryReadFile(this.initCodeFilePath, logger);
+            if (fresh == null) {
+                logger.warn("Could not read {}, skipping initCode reload", this.initCodeFilePath);
+                return;
+            }
+            this.initCode = fresh;
+            runInitScript(ctx, fresh);
+            logger.info("initCode reloaded ({} bytes)", fresh.length());
+        } catch (Exception e) {
+            logger.warn("Failed to re-run init script after file change", e);
+        } finally {
+            Thread.currentThread().setContextClassLoader(original);
         }
     }
 
@@ -161,29 +232,7 @@ public class XmlRouterComponent extends AbstractXmlCamelComponent {
 
             // call init code before context start
 
-            builder.addBeforeStart(camelContext -> {
-                if (initCode == null || initCode.isEmpty()) {
-                    return;
-                }
-
-                try {
-
-                    final ScriptRunner runner = create(XmlRouterComponent.class.getClassLoader(), scriptEngineName,
-                            initCode);
-
-                    final SimpleBindings bindings = new SimpleBindings();
-                    bindings.put("camelContext", camelContext);
-                    bindings.put("logger", logger);
-
-                    bindings.put("webClient", webClient);
-                    bindings.put("vertx", vertx);
-                    // perform call
-
-                    runner.run(bindings);
-                } catch (final Exception e) {
-                    logger.warn("Failed to run init code", e);
-                }
-            });
+            builder.addBeforeStart(camelContext -> runInitScript(camelContext, this.initCode));
         }
 
         // build registry
@@ -201,8 +250,11 @@ public class XmlRouterComponent extends AbstractXmlCamelComponent {
         this.requiredLanguages = newRequiredLanguages;
         this.cloudServiceRequirements = cloudServiceRequirementsTemp;
         this.initCode = initCodeTemp;
+        this.initCodeFilePath = asString(properties, INIT_CODE_FILE, "").trim();
         this.scriptEngineName = scriptEngineNameTemp;
         this.disableJmx = disableJmxTemp;
+
+        updateInitCodeFileWatcher();
     }
 
     @Override
@@ -286,7 +338,68 @@ public class XmlRouterComponent extends AbstractXmlCamelComponent {
     }
 
     private static String parseInitCode(final Map<String, Object> properties) {
+        final String filePath = Configuration.asString(properties, INIT_CODE_FILE, "");
+        final String fromFile = Configuration.tryReadFile(filePath, logger);
+        if (fromFile != null) {
+            logger.info("Loaded initCode from file {} ({} bytes)", filePath.trim(), fromFile.length());
+            return fromFile;
+        }
         return Configuration.asString(properties, INIT_CODE, "");
+    }
+
+    String getInitCodeFilePath() {
+        return this.initCodeFilePath;
+    }
+
+    /**
+     * Run the init script against the given camel context. Used both by the
+     * {@code addBeforeStart} callback (at context startup) and by the
+     * {@code initCode.file} hot-reload path (against the running context). The
+     * latter only re-evaluates the script, which re-binds the registered
+     * closures - no camel context restart, no Java DSL recompile.
+     *
+     * <p>The script gets a {@code rebind(name, bean)} helper closure in its
+     * bindings — prefer it over raw {@code camelContext.getRegistry().bind(...)}
+     * so each reload truly replaces the previous binding. Camel's
+     * {@code DefaultRegistry} keys by {@code (name, runtime-class)} and each
+     * Groovy eval generates a new closure subclass, so plain {@code bind}
+     * accumulates entries and {@code lookupByName} returns a stale instance.
+     * {@code rebind} unbinds-then-binds via reflection (the Registry API methods
+     * are x-internal in camel-api so we can't link to them directly).
+     */
+    private void runInitScript(final org.apache.camel.CamelContext camelContext, final String scriptText) {
+        if (scriptText == null || scriptText.isEmpty()) {
+            return;
+        }
+        try {
+            final ScriptRunner runner = create(XmlRouterComponent.class.getClassLoader(),
+                    this.scriptEngineName, scriptText);
+            final SimpleBindings bindings = new SimpleBindings();
+            bindings.put("camelContext", camelContext);
+            bindings.put("logger", logger);
+            bindings.put("webClient", this.webClient);
+            bindings.put("vertx", this.vertx);
+            // Helper exposed to the script as both `rebind('mes', mes)` (Groovy
+            // method-call syntax dispatches to call(...)) and
+            // `rebind.accept('mes', mes)` (BiConsumer-style). Other script
+            // engines (JS) can use either.
+            bindings.put("rebind", new Object() {
+                public void call(String name, Object bean) {
+                    accept(name, bean);
+                }
+                public void accept(String name, Object bean) {
+                    try {
+                        camelContext.getRegistry().unbind(name);
+                    } catch (Exception ignored) {
+                        // unbind on a missing name may throw on some Registry impls
+                    }
+                    camelContext.getRegistry().bind(name, bean);
+                }
+            });
+            runner.run(bindings);
+        } catch (final Exception e) {
+            logger.warn("Failed to run init code", e);
+        }
     }
 
     private static String parseScriptEngineName(final Map<String, Object> properties) {

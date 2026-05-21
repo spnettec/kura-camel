@@ -113,9 +113,12 @@ public class OsgiJavaRoutesBuilderLoader extends JavaRoutesBuilderLoader {
         }
 
         if (urls.isEmpty()) {
+            logger.warn("joor compile classpath has 0 jars - findEntries on lib/*.jar returned nothing for bundle {}",
+                    bundle.getSymbolicName());
             return parent;
         }
-        logger.debug("Built joor compile classpath with {} jars at {}", urls.size(), storage);
+        logger.info("Built joor compile classpath with {} jars (parent={}) at {}",
+                urls.size(), parent.getClass().getName(), storage);
         return new URLClassLoader(urls.toArray(new URL[0]), parent);
     }
 }

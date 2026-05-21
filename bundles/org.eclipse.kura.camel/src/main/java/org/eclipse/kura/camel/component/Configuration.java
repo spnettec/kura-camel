@@ -12,7 +12,13 @@
  *******************************************************************************/
 package org.eclipse.kura.camel.component;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
+
+import org.slf4j.Logger;
 
 /**
  * A few helper methods for consuming configuration from a properties map
@@ -220,5 +226,47 @@ public final class Configuration {
         }
 
         return defaultValue;
+    }
+
+    /**
+     * Read the file at {@code filePath} and return its UTF-8 content.
+     * Returns {@code null} (and logs a warning) on missing path or read failure,
+     * so callers can fall back to an inline configuration value.
+     *
+     * @param filePath
+     *            absolute path; {@code null}/blank returns {@code null} silently
+     * @param logger
+     *            logger for diagnostics; may be {@code null}
+     * @return file content or {@code null} on any failure
+     */
+    public static String tryReadFile(final String filePath, final Logger logger) {
+        if (filePath == null || filePath.trim().isEmpty()) {
+            return null;
+        }
+        final Path p = Paths.get(filePath.trim());
+        try {
+            return Files.readString(p);
+        } catch (IOException e) {
+            if (logger != null) {
+                logger.warn("Failed to read {}: {} - falling back to inline value", filePath, e.toString());
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Derive a file name from a path string (basename only). Used to pick the
+     * routes-loader extension when content was sourced from disk.
+     *
+     * @param filePath
+     *            file path; {@code null}/blank returns {@code null}
+     * @return base name (e.g. "MesRoute.java") or {@code null}
+     */
+    public static String fileNameOf(final String filePath) {
+        if (filePath == null || filePath.trim().isEmpty()) {
+            return null;
+        }
+        final Path p = Paths.get(filePath.trim()).getFileName();
+        return p == null ? null : p.toString();
     }
 }
