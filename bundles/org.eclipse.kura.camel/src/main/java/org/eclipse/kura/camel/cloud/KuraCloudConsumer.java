@@ -59,10 +59,12 @@ public class KuraCloudConsumer extends DefaultConsumer implements CloudClientLis
 
     @Override
     protected void doStop() throws Exception {
-        try {
-            this.cloudClient.unsubscribe(getEndpoint().getTopic());
-        } catch (final Exception e) {
-            log.info("Failed to unsubscribe", e);
+        if (this.cloudClient.isConnected()) {
+            try {
+                this.cloudClient.unsubscribe(getEndpoint().getTopic());
+            } catch (final Exception e) {
+                log.info("Failed to unsubscribe", e);
+            }
         }
         this.cloudClient.removeCloudClientListener(this);
         log.debug("Stopping CloudClientListener.");
