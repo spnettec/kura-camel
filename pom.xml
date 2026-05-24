@@ -41,6 +41,7 @@
         <module>target-definition</module>
         <module>bundles</module>
         <module>distrib</module>
+        <module>kura-camel-pde-deps</module>
     </modules>
 
     <pluginRepositories>
