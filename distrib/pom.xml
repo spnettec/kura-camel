@@ -51,6 +51,17 @@
             <artifactId>org.eclipse.kura.wire.camel</artifactId>
             <version>${org.eclipse.kura.wire.camel.version}</version>
         </dependency>
+        <!-- Support libs (previously shipped via monorepo kura-core.deb). -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>${org.apache.commons-pool2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore-osgi</artifactId>
+            <version>${org.apache.httpcomponents.httpcore-osgi.version}</version>
+        </dependency>
     </dependencies>
 
     <organization>
@@ -196,8 +207,12 @@
                         </goals>
                         <configuration>
                             <includeArtifactIds>
-                                org.eclipse.kura.camel
+                                org.eclipse.kura.camel,
+                                commons-pool2,
+                                httpcore-osgi
                             </includeArtifactIds>
+                            <excludeTypes>pom</excludeTypes>
+                            <excludeClassifiers>sources,javadoc</excludeClassifiers>
                             <excludeTransitive>true</excludeTransitive>
                             <stripVersion>false</stripVersion>
                             <outputDirectory>${project.build.directory}/plugins_4s</outputDirectory>
