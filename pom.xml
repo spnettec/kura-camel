@@ -33,7 +33,7 @@
         <org.eclipse.kura.wire.camel.version>2.0.0-SNAPSHOT</org.eclipse.kura.wire.camel.version>
 
         <!-- Sibling-only support libs (no longer shipped by monorepo kura-core.deb). -->
-        <org.apache.commons-pool2.version>2.12.1</org.apache.commons-pool2.version>
+        <org.apache.commons-pool2.version>2.13.1</org.apache.commons-pool2.version>
         <org.apache.httpcomponents.httpcore-osgi.version>4.4.16</org.apache.httpcomponents.httpcore-osgi.version>
     </properties>
 
