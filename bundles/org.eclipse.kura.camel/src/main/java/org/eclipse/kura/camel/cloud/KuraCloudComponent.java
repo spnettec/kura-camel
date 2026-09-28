@@ -50,20 +50,14 @@ public class KuraCloudComponent extends DefaultComponent {
 
     @Override
     protected void doStart() throws Exception {
-        final CloudService cloudServiceInstance = lookupCloudService();
-
-        if (cloudServiceInstance == null) {
-            throw new IllegalStateException(
-                    "'cloudService' is not set and not found in Camel context service registry");
-        }
-
-        this.cache = new CloudClientCacheImpl(cloudServiceInstance);
+        // fail fast when no CloudService is resolvable, before any route starts
+        getCache();
 
         super.doStart();
     }
 
     @Override
-    protected void doStop() throws Exception {
+    protected synchronized void doStop() throws Exception {
         super.doStop();
         if (this.cache != null) {
             this.cache.close();
@@ -73,9 +67,26 @@ public class KuraCloudComponent extends DefaultComponent {
 
     // Operations
 
+    public synchronized CloudClientCache getCache() {
+        final CloudClientCache currentCache = this.cache;
+        if (currentCache != null) {
+            return currentCache;
+        }
+
+        final CloudService cloudServiceInstance = lookupCloudService();
+
+        if (cloudServiceInstance == null) {
+            throw new IllegalStateException(
+                    "'cloudService' is not set and not found in Camel context service registry");
+        }
+
+        this.cache = new CloudClientCacheImpl(cloudServiceInstance);
+        return this.cache;
+    }
+
     @Override
     protected Endpoint createEndpoint(String uri, String remain, Map<String, Object> parameters) throws Exception {
-        final KuraCloudEndpoint kuraCloudEndpoint = new KuraCloudEndpoint(uri, this, this.cache);
+        final KuraCloudEndpoint kuraCloudEndpoint = new KuraCloudEndpoint(uri, this);
 
         final String[] res = remain.split("/", 2);
         if (res.length < 2) {
