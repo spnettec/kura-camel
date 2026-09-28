@@ -22,4 +22,3 @@ Import-Package: org.apache.camel,
  org.osgi.service.wireadmin;version="[1.0.1,1.1)",
  org.osgi.util.tracker;version="[1.5,2.0)",
  org.slf4j;version="[1.7.0,3)"
-Bundle-RequiredExecutionEnvironment: JavaSE-21
