@@ -164,3 +164,4 @@ Bundle-ClassPath: .,
  lib/camel-log.jar
 DynamicImport-Package: *
 Service-Component: OSGI-INF/*.xml
+Bundle-RequiredExecutionEnvironment: JavaSE-21

@@ -37,3 +37,4 @@ Import-Package: javax.script,
 Service-Component: OSGI-INF/factory.xml,
  OSGI-INF/serviceFactory.xml
 DynamicImport-Package: *
+Bundle-RequiredExecutionEnvironment: JavaSE-21

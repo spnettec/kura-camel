@@ -21,3 +21,4 @@ Import-Package: io.vertx.core,
 Service-Component: OSGI-INF/xmlRouter.xml
 Bundle-ActivationPolicy: lazy
 DynamicImport-Package: *
+Bundle-RequiredExecutionEnvironment: JavaSE-21
