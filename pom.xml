@@ -14,60 +14,48 @@
      Red Hat Inc
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
     <groupId>org.eclipse.kura</groupId>
-    <artifactId>kura-camel</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <properties>
-
-
-        <!-- m2e/Eclipse compiler level; Tycho CLI ignores this -->
-
-
-        <maven.compiler.release>21</maven.compiler.release>
-        <org.apache.camel.version>4.20.0</org.apache.camel.version>
-
-        <org.eclipse.kura.camel.version>2.0.0-SNAPSHOT</org.eclipse.kura.camel.version>
-        <org.eclipse.kura.camel.cloud.factory.version>2.0.0-SNAPSHOT</org.eclipse.kura.camel.cloud.factory.version>
-        <org.eclipse.kura.camel.xml.version>2.0.0-SNAPSHOT</org.eclipse.kura.camel.xml.version>
-        <org.eclipse.kura.wire.camel.version>2.0.0-SNAPSHOT</org.eclipse.kura.wire.camel.version>
-
-        <!-- Sibling-only support libs (no longer shipped by monorepo kura-core.deb). -->
-        <org.apache.commons-pool2.version>2.13.1</org.apache.commons-pool2.version>
-        <org.apache.httpcomponents.httpcore-osgi.version>4.4.16</org.apache.httpcomponents.httpcore-osgi.version>
-    </properties>
-
-    <modules>
-        <module>target-definition</module>
-        <module>bundles</module>
-        <module>distrib</module>
-        <module>dp</module>
-        <module>kura-camel-pde-deps</module>
-    </modules>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>cbi</id>
-            <url>https://repo.eclipse.org/content/repositories/cbi-releases/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <repositories>
-        <repository>
-            <id>kura-addons</id>
-            <name>Kura Addons Maven Repository</name>
-            <url>https://raw.githubusercontent.com/eurotech/kura_addons/mvn-repo</url>
-        </repository>
-        <repository>
-            <id>central</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
-
+    <artifactId>kura-build-parent</artifactId>
+    <version>6.0.0-SNAPSHOT</version>
+    <relativePath />
+  </parent>
+  <groupId>org.eclipse.kura</groupId>
+  <artifactId>kura-camel</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <org.apache.camel.version>4.20.0</org.apache.camel.version>
+    <org.eclipse.kura.camel.version>2.0.0-SNAPSHOT</org.eclipse.kura.camel.version>
+    <org.eclipse.kura.camel.cloud.factory.version>2.0.0-SNAPSHOT</org.eclipse.kura.camel.cloud.factory.version>
+    <org.eclipse.kura.camel.xml.version>2.0.0-SNAPSHOT</org.eclipse.kura.camel.xml.version>
+    <org.eclipse.kura.wire.camel.version>2.0.0-SNAPSHOT</org.eclipse.kura.wire.camel.version>
+    <org.apache.commons-pool2.version>2.13.1</org.apache.commons-pool2.version>
+    <org.apache.httpcomponents.httpcore-osgi.version>4.4.16</org.apache.httpcomponents.httpcore-osgi.version>
+  </properties>
+  <modules>
+    <module>bundles</module>
+    <module>distrib</module>
+    <module>dp</module>
+  </modules>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>cbi</id>
+      <url>https://repo.eclipse.org/content/repositories/cbi-releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <repositories>
+    <repository>
+      <id>kura-addons</id>
+      <name>Kura Addons Maven Repository</name>
+      <url>https://raw.githubusercontent.com/eurotech/kura_addons/mvn-repo</url>
+    </repository>
+    <repository>
+      <id>central</id>
+      <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+  </repositories>
 </project>
