@@ -7,6 +7,12 @@ dependencies are provided by the application. Handwritten metadata is preserved;
 optional bundle overlays allow a production repair to be tested without rebuilding
 or modifying the stopped runtime.
 
+`--template-profile` supplies the copied configuration and keystores. It may
+differ from the runtime's declared `kura.home`. The helper reads that home from
+`jvm.args` and relocates both source paths to the new owned profile, retaining
+the original ownership-marker check. `runtime-home-relocation.json` records the
+three paths.
+
 The actual configurable router, ConfigurationService, Camel 4.22.1, Kapua cloud stack,
 Groovy/Vertx WebClient bindings, rebind helper and file watcher execute here.
 Assertions cover KuraPayload/string/binary production routing, inbound cloud

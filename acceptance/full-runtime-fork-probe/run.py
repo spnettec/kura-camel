@@ -63,8 +63,16 @@ def main():
         args.camel_bundle = args.camel_bundle.resolve()
     if args.camel_xml_bundle:
         args.camel_xml_bundle = args.camel_xml_bundle.resolve()
+    source_options = shlex.split((args.runtime / "jvm.args").read_text())
+    source_homes = [x[len("-Dkura.home="):] for x in source_options if x.startswith("-Dkura.home=")]
+    if len(source_homes) != 1 or not Path(source_homes[0]).is_absolute():
+        parser.error("Runtime must declare one absolute kura.home")
+    runtime_profile = Path(source_homes[0]).resolve()
     protected = Path.home() / ".kura-dev"
-    if args.archive == protected or protected in args.archive.parents or args.archive == args.runtime or args.runtime in args.archive.parents:
+    if (args.archive == protected or protected in args.archive.parents
+            or args.archive == args.runtime or args.runtime in args.archive.parents
+            or args.archive == runtime_profile or runtime_profile in args.archive.parents
+            or args.archive == args.template_profile or args.template_profile in args.archive.parents):
         parser.error("Use a new archive outside runtime and personal profiles")
     ports_available()
     args.archive.mkdir(parents=True, exist_ok=False)
@@ -101,6 +109,10 @@ def main():
                 relocated.append(str(file.relative_to(home)))
     (home / ".camel-fork-acceptance-owned").write_text("Complete Mac Camel fork acceptance\n")
     (args.archive / "relocated-profile-files.json").write_text(json.dumps(relocated, indent=2) + "\n")
+    (args.archive / "runtime-home-relocation.json").write_text(json.dumps({
+        "runtimeProfile": str(runtime_profile), "templateProfile": str(args.template_profile),
+        "ownedProfile": str(home)
+    }, indent=2) + "\n")
     if args.browser:
         tree = ET.parse(home / "user/snapshots/snapshot_0.xml")
         component = next(c for c in tree.getroot().iter() if c.attrib.get("pid") == "HttpsKeystore")
@@ -122,10 +134,14 @@ def main():
                 subprocess.run(command, env=environment, stdout=log, stderr=subprocess.STDOUT, check=True)
     configuration = args.archive / "configuration"
     configuration.mkdir()
+    def relocate_runtime(content):
+        return (content.replace(str(args.template_profile), str(home))
+                .replace(source_homes[0], str(home))
+                .replace(str(args.runtime / "configuration"), str(configuration)))
+
     for file in (args.runtime / "configuration").iterdir():
         if file.is_file():
-            content = file.read_text().replace(str(args.template_profile), str(home))
-            content = content.replace(str(args.runtime / "configuration"), str(configuration))
+            content = relocate_runtime(file.read_text())
             if file.name == "config.ini":
                 for symbolic_name, overlay in overlays.items():
                     inventory = json.loads((args.runtime / "inventory.json").read_text())
@@ -171,8 +187,8 @@ def main():
             if not endpoint.exists():
                 raise RuntimeError("No independent broker endpoint")
             uri = json.loads(endpoint.read_text())["uri"]
-            options = [x.replace(str(args.template_profile), str(home)).replace(str(args.runtime / "configuration"), str(configuration))
-                       for x in shlex.split((args.runtime / "jvm.args").read_text())]
+            options = [relocate_runtime(x) for x in source_options]
+            assert "-Dkura.home=" + str(home) in options
             command = [str(args.java), *options, "-Dkura.acceptance.root=" + str(args.archive),
                        "-Dkura.acceptance.broker=" + uri, "-Dkura.acceptance.http=http://127.0.0.1:" + str(http.server_port),
                        "-Dkura.acceptance.javascript=" + str(args.javascript).lower(),
