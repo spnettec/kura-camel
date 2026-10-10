@@ -40,7 +40,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-buffer</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -52,7 +52,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-base</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -64,7 +64,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-http</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -76,7 +76,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-mqtt</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -88,7 +88,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-socks</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -100,7 +100,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-common</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -112,7 +112,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-handler-proxy</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -124,7 +124,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-handler</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -136,7 +136,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-resolver</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -148,7 +148,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-transport-classes-epoll</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -160,7 +160,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-transport-classes-kqueue</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -172,7 +172,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-transport-native-unix-common</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -184,7 +184,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-transport</artifactId>
-      <version>4.2.16.Final</version>
+      <version>4.2.19.Final</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -196,7 +196,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-amqp</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -208,7 +208,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-api</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -220,7 +220,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-attachments</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -232,7 +232,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-base-engine</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -244,7 +244,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-base</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -256,7 +256,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-bean</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -268,7 +268,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-cluster</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -280,7 +280,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core-engine</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -292,7 +292,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core-languages</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -304,7 +304,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core-model</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -316,7 +316,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core-processor</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -328,7 +328,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core-reifier</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -340,7 +340,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core-xml</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -352,7 +352,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -364,7 +364,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-direct</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -376,7 +376,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-dsl-support</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -388,7 +388,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-endpointdsl-support</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -400,7 +400,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-endpointdsl</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -412,7 +412,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-file</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -424,7 +424,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-groovy</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -436,7 +436,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-gson</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -448,7 +448,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-http-base</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -460,7 +460,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-http-common</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -472,7 +472,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-http</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -484,7 +484,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jackson3</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -496,7 +496,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-java-joor-dsl</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -508,7 +508,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jms</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -520,7 +520,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-joor</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -532,7 +532,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-log</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -544,7 +544,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-management-api</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -556,7 +556,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-netty-http</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -568,7 +568,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-netty</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -580,7 +580,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-paho-mqtt5</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -592,7 +592,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-paho</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -604,7 +604,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-ref</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -616,7 +616,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-rest</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -628,7 +628,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-seda</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -640,7 +640,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-servlet</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -652,7 +652,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-spring-xml</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -664,7 +664,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-spring</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -676,7 +676,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-stream</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -688,7 +688,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-support</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -700,7 +700,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-timer</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -712,7 +712,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-tooling-model</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -724,7 +724,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-util-json</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -736,7 +736,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-util</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -748,7 +748,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-vertx-common</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -760,7 +760,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-vertx-http</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -772,7 +772,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-vertx-websocket</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -784,7 +784,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-vertx</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -796,7 +796,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-xml-io-dsl</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -808,7 +808,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-xml-io-util</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -820,7 +820,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-xml-io</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -832,7 +832,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-xml-jaxb</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -844,7 +844,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-xml-jaxp</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -856,7 +856,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-yaml-dsl</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -868,7 +868,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-yaml-io</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -880,13 +880,13 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-yaml-dsl-common</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-yaml-dsl-deserializers</artifactId>
-      <version>4.20.0</version>
+      <version>4.22.1</version>
       <exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
     </dependency>
     <dependency>
@@ -1067,7 +1067,7 @@
     <dependency>
       <groupId>p2.osgi.bundle</groupId>
       <artifactId>io.vertx.core</artifactId>
-      <version>5.1.4</version>
+      <version>5.2.1</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -1099,7 +1099,7 @@
     <dependency><groupId>org.apache.groovy</groupId><artifactId>groovy-xml</artifactId><version>5.0.5</version><scope>test</scope></dependency>
     <dependency><groupId>org.apache.groovy</groupId><artifactId>groovy-dateutil</artifactId><version>5.0.5</version><scope>test</scope></dependency>
     <dependency><groupId>tools.jackson.core</groupId><artifactId>jackson-core</artifactId><version>3.2.0</version><scope>test</scope></dependency>
-    <dependency><groupId>org.apache.camel</groupId><artifactId>camel-mock</artifactId><version>4.20.0</version><scope>test</scope></dependency>
+    <dependency><groupId>org.apache.camel</groupId><artifactId>camel-mock</artifactId><version>4.22.1</version><scope>test</scope></dependency>
     <dependency><groupId>jakarta.jms</groupId><artifactId>jakarta.jms-api</artifactId><version>3.1.0</version><scope>test</scope></dependency>
     <!-- Real engines for the Camel consumer's JSR-223 interoperability regression. -->
     <dependency><groupId>org.apache.groovy</groupId><artifactId>groovy-jsr223</artifactId><version>5.0.5</version><scope>test</scope></dependency>
@@ -1219,413 +1219,413 @@
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-amqp</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-amqp.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-api</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-api.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-attachments</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-attachments.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-base-engine</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-base-engine.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-base</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-base.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-bean</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-bean.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-cluster</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-cluster.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-engine</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-core-engine.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-languages</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-core-languages.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-model</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-core-model.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-processor</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-core-processor.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-reifier</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-core-reifier.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-xml</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-core-xml.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-core.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-direct</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-direct.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-dsl-support</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-dsl-support.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-endpointdsl-support</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-endpointdsl-support.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-endpointdsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-endpointdsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-file</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-file.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-groovy</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-groovy.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-gson</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-gson.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-http-base</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-http-base.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-http-common</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-http-common.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-http</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-http.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-jackson3</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-jackson3.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-java-joor-dsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-java-joor-dsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-jms</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-jms.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-joor</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-joor.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-log</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-log.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-management-api</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-management-api.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-netty-http</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-netty-http.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-netty</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-netty.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-paho-mqtt5</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-paho-mqtt5.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-paho</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-paho.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-ref</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-ref.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-rest</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-rest.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-seda</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-seda.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-servlet</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-servlet.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-spring-xml</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-spring-xml.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-spring</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-spring.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-stream</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-stream.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-support</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-support.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-timer</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-timer.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-tooling-model</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-tooling-model.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-util-json</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-util-json.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-util</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-util.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx-common</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-vertx-common.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx-http</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-vertx-http.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx-websocket</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-vertx-websocket.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-vertx.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-io-dsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-xml-io-dsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-io-util</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-xml-io-util.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-io</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-xml-io.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-jaxb</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-xml-jaxb.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-jaxp</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-xml-jaxp.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-dsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-yaml-dsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-io</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-yaml-io.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-dsl-common</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-yaml-dsl-common.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-dsl-deserializers</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                   <destFileName>camel-yaml-dsl-deserializers.jar</destFileName>
                 </artifactItem>
@@ -1660,413 +1660,413 @@
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-amqp</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-amqp.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-api</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-api.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-attachments</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-attachments.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-base-engine</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-base-engine.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-base</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-base.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-bean</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-bean.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-cluster</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-cluster.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-engine</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-core-engine.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-languages</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-core-languages.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-model</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-core-model.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-processor</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-core-processor.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-reifier</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-core-reifier.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core-xml</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-core-xml.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-core</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-core.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-direct</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-direct.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-dsl-support</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-dsl-support.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-endpointdsl-support</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-endpointdsl-support.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-endpointdsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-endpointdsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-file</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-file.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-groovy</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-groovy.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-gson</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-gson.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-http-base</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-http-base.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-http-common</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-http-common.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-http</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-http.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-jackson3</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-jackson3.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-java-joor-dsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-java-joor-dsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-jms</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-jms.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-joor</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-joor.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-log</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-log.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-management-api</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-management-api.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-netty-http</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-netty-http.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-netty</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-netty.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-paho-mqtt5</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-paho-mqtt5.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-paho</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-paho.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-ref</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-ref.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-rest</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-rest.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-seda</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-seda.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-servlet</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-servlet.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-spring-xml</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-spring-xml.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-spring</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-spring.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-stream</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-stream.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-support</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-support.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-timer</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-timer.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-tooling-model</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-tooling-model.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-util-json</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-util-json.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-util</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-util.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx-common</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-vertx-common.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx-http</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-vertx-http.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx-websocket</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-vertx-websocket.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-vertx</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-vertx.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-io-dsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-xml-io-dsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-io-util</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-xml-io-util.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-io</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-xml-io.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-jaxb</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-xml-jaxb.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-xml-jaxp</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-xml-jaxp.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-dsl</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-yaml-dsl.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-io</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-yaml-io.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-dsl-common</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-yaml-dsl-common.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.camel</groupId>
                   <artifactId>camel-yaml-dsl-deserializers</artifactId>
-                  <version>4.20.0</version>
+                  <version>4.22.1</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-yaml-dsl-deserializers.jar</destFileName>
                 </artifactItem>
