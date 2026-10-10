@@ -381,24 +381,33 @@ public class XmlRouterComponent extends AbstractXmlCamelComponent {
             bindings.put("vertx", this.vertx);
             // Helper exposed to the script as both `rebind('mes', mes)` (Groovy
             // method-call syntax dispatches to call(...)) and
-            // `rebind.accept('mes', mes)` (BiConsumer-style). Other script
-            // engines (JS) can use either.
-            bindings.put("rebind", new Object() {
-                public void call(String name, Object bean) {
-                    accept(name, bean);
-                }
-                public void accept(String name, Object bean) {
-                    try {
-                        camelContext.getRegistry().unbind(name);
-                    } catch (Exception ignored) {
-                        // unbind on a missing name may throw on some Registry impls
-                    }
-                    camelContext.getRegistry().bind(name, bean);
-                }
-            });
+            // `rebind.accept('mes', mes)` (JavaScript member-call syntax).
+            bindings.put("rebind", new ScriptRebind(camelContext));
             runner.run(bindings);
         } catch (final Exception e) {
             logger.warn("Failed to run init code", e);
+        }
+    }
+
+    /** Public declaring class so JSR-223 engines can access the script methods. */
+    public static final class ScriptRebind {
+        private final org.apache.camel.CamelContext camelContext;
+
+        public ScriptRebind(org.apache.camel.CamelContext camelContext) {
+            this.camelContext = camelContext;
+        }
+
+        public void call(String name, Object bean) {
+            accept(name, bean);
+        }
+
+        public void accept(String name, Object bean) {
+            try {
+                this.camelContext.getRegistry().unbind(name);
+            } catch (Exception ignored) {
+                // unbind on a missing name may throw on some Registry implementations
+            }
+            this.camelContext.getRegistry().bind(name, bean);
         }
     }
 

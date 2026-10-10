@@ -1082,6 +1082,10 @@
     <dependency><groupId>tools.jackson.core</groupId><artifactId>jackson-core</artifactId><version>3.2.0</version><scope>test</scope></dependency>
     <dependency><groupId>org.apache.camel</groupId><artifactId>camel-mock</artifactId><version>4.20.0</version><scope>test</scope></dependency>
     <dependency><groupId>jakarta.jms</groupId><artifactId>jakarta.jms-api</artifactId><version>3.1.0</version><scope>test</scope></dependency>
+    <!-- Real engines for the Camel consumer's JSR-223 interoperability regression. -->
+    <dependency><groupId>org.apache.groovy</groupId><artifactId>groovy-jsr223</artifactId><version>5.0.5</version><scope>test</scope></dependency>
+    <dependency><groupId>org.graalvm.js</groupId><artifactId>js-scriptengine</artifactId><version>24.2.1</version><scope>test</scope></dependency>
+    <dependency><groupId>org.graalvm.js</groupId><artifactId>js-language</artifactId><version>24.2.1</version><scope>test</scope></dependency>
   </dependencies>
   <build>
     <resources>

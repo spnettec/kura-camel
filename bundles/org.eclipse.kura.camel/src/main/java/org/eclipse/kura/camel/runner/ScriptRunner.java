@@ -137,7 +137,17 @@ public abstract class ScriptRunner {
 
             @Override
             public ScriptEngine call() throws Exception {
-                return manager.getEngineByName(engineName);
+                final ScriptEngine engine = manager.getEngineByName(engineName);
+                if (engine != null && "com.oracle.truffle.js.scriptengine.GraalJSScriptEngine"
+                        .equals(engine.getClass().getName())) {
+                    // Camel init scripts call injected Java services and construct
+                    // Processors. Configure this engine before its context starts;
+                    // factory discovery remains in the separate provider bundle.
+                    final Bindings options = engine.getBindings(ScriptContext.ENGINE_SCOPE);
+                    options.put("polyglot.js.allowHostAccess", true);
+                    options.put("polyglot.js.allowHostClassLookup", true);
+                }
+                return engine;
             }
         });
     }
