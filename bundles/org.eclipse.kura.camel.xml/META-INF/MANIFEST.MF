@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Plain XML router component
+Bundle-Name: Camel router component
 Bundle-SymbolicName: org.eclipse.kura.camel.xml
 Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: Eclipse Kura
