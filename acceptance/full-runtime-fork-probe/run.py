@@ -14,6 +14,7 @@ import socket
 import subprocess
 import threading
 import time
+import xml.etree.ElementTree as ET
 
 
 def sha(path):
@@ -46,9 +47,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("runtime", "template-profile", "archive", "java", "broker-module"):
         parser.add_argument("--" + name, type=Path, required=True)
+    parser.add_argument("--javascript", action="store_true")
+    parser.add_argument("--browser", action="store_true")
+    parser.add_argument("--camel-bundle", type=Path)
+    parser.add_argument("--camel-xml-bundle", type=Path)
     args = parser.parse_args()
-    for name in vars(args):
+    for name in ("runtime", "template_profile", "archive", "java", "broker_module"):
         setattr(args, name, getattr(args, name).resolve())
+    if args.camel_bundle:
+        args.camel_bundle = args.camel_bundle.resolve()
+    if args.camel_xml_bundle:
+        args.camel_xml_bundle = args.camel_xml_bundle.resolve()
     protected = Path.home() / ".kura-dev"
     if args.archive == protected or protected in args.archive.parents or args.archive == args.runtime or args.runtime in args.archive.parents:
         parser.error("Use a new archive outside runtime and personal profiles")
@@ -57,6 +66,12 @@ def main():
     module = Path(__file__).resolve().parent
     helper = args.archive / "camel-fork-probe.jar"
     shutil.copy2(module / "target/kura-full-runtime-camel-fork-acceptance-1.0.0-SNAPSHOT.jar", helper)
+    overlays = {}
+    for symbolic_name, bundle in (("org.eclipse.kura.camel", args.camel_bundle),
+                                  ("org.eclipse.kura.camel.xml", args.camel_xml_bundle)):
+        if bundle:
+            overlays[symbolic_name] = args.archive / (symbolic_name + ".jar")
+            shutil.copy2(bundle, overlays[symbolic_name])
     home = args.archive / "profile"
     shutil.copytree(args.template_profile, home, ignore=shutil.ignore_patterns("logs", "tmp", "*-result.json"))
     (home / "logs").mkdir()
@@ -70,6 +85,25 @@ def main():
                 relocated.append(str(file.relative_to(home)))
     (home / ".camel-fork-acceptance-owned").write_text("Complete Mac Camel fork acceptance\n")
     (args.archive / "relocated-profile-files.json").write_text(json.dumps(relocated, indent=2) + "\n")
+    if args.browser:
+        tree = ET.parse(home / "user/snapshots/snapshot_0.xml")
+        component = next(c for c in tree.getroot().iter() if c.attrib.get("pid") == "HttpsKeystore")
+        values = {p.attrib["name"]: p.find("{*}value").text for p in component.iter() if p.tag.endswith("property")}
+        keystore = Path(values["keystore.path"]).resolve()
+        assert home in keystore.parents and keystore.is_file()
+        environment = os.environ.copy()
+        environment["KURA_ACCEPTANCE_KEYSTORE_PASSWORD"] = values["keystore.password"]
+        alias = "complete-mac-camel-browser-https"
+        keytool = str(args.java.parent / "keytool")
+        commands = [
+            [keytool, "-genkeypair", "-alias", alias, "-keyalg", "RSA", "-keysize", "2048", "-validity", "2",
+             "-dname", "CN=localhost", "-ext", "SAN=dns:localhost,ip:127.0.0.1", "-keystore", str(keystore),
+             "-storepass:env", "KURA_ACCEPTANCE_KEYSTORE_PASSWORD", "-noprompt"],
+            [keytool, "-exportcert", "-rfc", "-alias", alias, "-keystore", str(keystore),
+             "-storepass:env", "KURA_ACCEPTANCE_KEYSTORE_PASSWORD", "-file", str(args.archive / "https-cert.pem")]]
+        with (args.archive / "https-provision.log").open("w") as log:
+            for command in commands:
+                subprocess.run(command, env=environment, stdout=log, stderr=subprocess.STDOUT, check=True)
     configuration = args.archive / "configuration"
     configuration.mkdir()
     for file in (args.runtime / "configuration").iterdir():
@@ -77,6 +111,13 @@ def main():
             content = file.read_text().replace(str(args.template_profile), str(home))
             content = content.replace(str(args.runtime / "configuration"), str(configuration))
             if file.name == "config.ini":
+                for symbolic_name, overlay in overlays.items():
+                    inventory = json.loads((args.runtime / "inventory.json").read_text())
+                    entry = next(e for e in inventory if e["symbolicName"] == symbolic_name)
+                    candidates = ("file:" + entry["path"], (args.runtime / entry["path"]).as_uri())
+                    matches = [uri for uri in candidates if content.count(uri) == 1]
+                    assert len(matches) == 1
+                    content = content.replace(matches[0], overlay.as_uri())
                 content = re.sub(r"(?m)^osgi.bundles=(.*)$", lambda m: m.group(0) + ",reference:" + helper.as_uri() + "@6:start", content)
             (configuration / file.name).write_text(content)
     requests = []
@@ -117,14 +158,21 @@ def main():
                        for x in shlex.split((args.runtime / "jvm.args").read_text())]
             command = [str(args.java), *options, "-Dkura.acceptance.root=" + str(args.archive),
                        "-Dkura.acceptance.broker=" + uri, "-Dkura.acceptance.http=http://127.0.0.1:" + str(http.server_port),
+                       "-Dkura.acceptance.javascript=" + str(args.javascript).lower(),
+                       "-Dkura.acceptance.browser=" + str(args.browser).lower(),
                        "-jar", str(args.runtime / "launcher.jar"), "-configuration", str(configuration),
                        "-install", str(args.runtime), "-console", "-consoleLog"]
             (args.archive / "command.json").write_text(json.dumps(command, indent=2) + "\n")
             app = subprocess.Popen(command, cwd=args.runtime, stdin=subprocess.PIPE, stdout=app_log, stderr=subprocess.STDOUT, start_new_session=True)
             processes.append(app)
             output = args.archive / "camel-probe-result.json"
-            deadline = time.monotonic() + 150
+            deadline = time.monotonic() + (750 if args.browser else 150)
+            browser_announced = False
             while app.poll() is None and not output.exists() and time.monotonic() < deadline:
+                ready = args.archive / "camel-browser-ready.json"
+                if ready.exists() and not browser_announced:
+                    print(json.dumps({"browserReady": str(ready), "url": "https://localhost:18443"}), flush=True)
+                    browser_announced = True
                 time.sleep(0.25)
             result = json.loads(output.read_text()) if output.exists() else {"passed": False, "error": "No result before exit/150-second deadline"}
         except Exception as error:
@@ -145,9 +193,12 @@ def main():
     result["broker"] = json.loads(final.read_text()) if final.exists() else {"stopped": False}
     if result.get("passed"):
         expected = {result["clientId"], result["observerId"]}
-        if not expected.issubset(result["broker"].get("authenticatedClients", [])) or len(requests) != 4 or any(forced):
+        expected_http = 4 + int(args.javascript) + int(args.browser)
+        if not expected.issubset(result["broker"].get("authenticatedClients", [])) or len(requests) != expected_http or any(forced):
             result.update(passed=False, error="Independent broker/HTTP/cleanup evidence mismatch")
     result["helperSha256"] = sha(helper)
+    if overlays:
+        result["productionOverlaySha256"] = {name: sha(path) for name, path in overlays.items()}
     result["sources"] = {str(p.relative_to(module)): sha(p) for p in module.rglob("*") if p.is_file() and "target" not in p.relative_to(module).parts}
     result["brokerSourceSha256"] = sha(args.broker_module / "src/test/java/org/eclipse/kura/cloud/testing/fullruntime/AcceptanceBroker.java")
     result["logs"] = {f: sha(args.archive / f) for f in ("console.log", "broker.log", "profile/logs/kura.log") if (args.archive / f).is_file()}

@@ -143,11 +143,36 @@ public final class ForkProbe implements BundleActivator {
                     scriptMessage(next, queue, base, "-next", nonce, http, "groovy-inline-v3", unmarshaller);
                     inbound(observer, queue, base, "-next", nonce, marshaller, unmarshaller);
                     evidence.put("changedXmlContextLifecyclePassed", true);
+                    if (Boolean.getBoolean("kura.acceptance.javascript")) {
+                        props.put("scriptEngineName", "JavaScript"); props.put("initCode", javascript("javascript-v4"));
+                        configuration.updateConfiguration(routerPid, new HashMap<>(props), false);
+                        CamelContext js = readyContext(context, routerPid, "javascript-v4");
+                        require(js != next && next.isStopped(), "JavaScript selection replaces context");
+                        scriptMessage(js, queue, base, "-next", nonce, http, "javascript-v4", unmarshaller);
+                        evidence.put("javascriptInitAndVertxPassed", true);
+                    }
+                    if (Boolean.getBoolean("kura.acceptance.browser")) {
+                        configuration.updateConfiguration("org.eclipse.kura.internal.rest.provider.RestService",
+                                new HashMap<>(Map.of("allowed.ports", new Integer[] {18443})), false);
+                        Map<String, Object> ready = new LinkedHashMap<>();
+                        ready.put("routerPid", routerPid); ready.put("version", "groovy-browser-v5");
+                        ready.put("scriptEngineName", "Groovy"); ready.put("initCode", script("groovy-browser-v5"));
+                        Files.writeString(root.resolve("camel-browser-ready.json"), new Gson().toJson(ready) + "\n");
+                        awaitBrowser(context, routerPid, root);
+                        CamelContext edited = readyContext(context, routerPid, "groovy-browser-v5");
+                        require("Groovy".equals(configuration.getComponentConfiguration(routerPid)
+                                .getConfigurationProperties().get("scriptEngineName")), "Browser saved selected language");
+                        // The console trims the terminal newline when saving text fields.
+                        require(script("groovy-browser-v5").stripTrailing().equals(configuration.getComponentConfiguration(routerPid)
+                                .getConfigurationProperties().get("initCode")), "Browser saved script after console newline normalization");
+                        scriptMessage(edited, queue, base, "-next", nonce, http, "groovy-browser-v5", unmarshaller);
+                        evidence.put("browserEditedScriptExecuted", true);
+                    }
                 } finally { if (observer.isConnected()) observer.disconnect(); }
             }
             evidence.put("routerPid", routerPid); evidence.put("cloudPid", cloudPid); evidence.put("clientId", client); evidence.put("observerId", observerId);
             evidence.put("bundleCount", context.getBundles().length); evidence.put("packets", packets);
-            evidence.put("browserEditorSaveExecuted", false);
+            evidence.put("browserEditorSaveExecuted", Boolean.getBoolean("kura.acceptance.browser"));
         } catch (Throwable error) { failure = error; }
         finally {
             try {
@@ -201,6 +226,34 @@ public final class ForkProbe implements BundleActivator {
                   <route id="in"><from uri="acceptance-cloud:FULL_CAMEL/in%s"/><removeHeaders pattern="CamelKuraCloud.*"/><to uri="acceptance-cloud:FULL_CAMEL/echo%s?qos=1"/></route>
                 </routes>
                 """.formatted(nonce, suffix, nonce, suffix, suffix, suffix);
+    }
+    private static String javascript(String version) {
+        return """
+                var Processor = Java.extend(Java.type('org.apache.camel.Processor'));
+                var TimeUnit = Java.type('java.util.concurrent.TimeUnit');
+                if (camelContext.getRegistry().lookupByName('vertx') !== vertx) throw new Error('Vertx binding');
+                if (camelContext.getRegistry().lookupByName('webClient') !== webClient) throw new Error('WebClient binding');
+                rebind.accept('probeDispatcher', new Processor({process: function(exchange) {
+                    exchange.getContext().getRegistry().lookupByName('probeProcessor').process(exchange);
+                }}));
+                rebind.accept('probeProcessor', new Processor({process: function(exchange) {
+                    var response = webClient.getAbs(String(exchange.getMessage().getHeader('acceptance.url')))
+                        .send().toCompletionStage().toCompletableFuture().get(5, TimeUnit.SECONDS);
+                    if (response.statusCode() !== 200) throw new Error('HTTP status');
+                    exchange.getMessage().setBody('%s|' + response.bodyAsString());
+                }}));
+                rebind.accept('acceptance.script.version', '%s');
+                """.formatted(version, version);
+    }
+    private static void awaitBrowser(BundleContext context, String pid, Path root) throws Exception {
+        long deadline = System.nanoTime() + TimeUnit.MINUTES.toNanos(10);
+        while (true) {
+            require(System.nanoTime() < deadline, "Browser edit/save deadline");
+            CamelContext value = current(context, pid);
+            if (value != null && value.isStarted() && "groovy-browser-v5".equals(value.getRegistry().lookupByName("acceptance.script.version"))
+                    && Files.isRegularFile(root.resolve("browser-actions.json"))) return;
+            Thread.sleep(100);
+        }
     }
     private static void send(CamelContext context, String endpoint, Object body) throws Exception {
         try (var producer = context.createProducerTemplate()) { producer.sendBody(endpoint, body); }
