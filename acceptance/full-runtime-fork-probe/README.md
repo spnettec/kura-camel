@@ -15,6 +15,18 @@ configuration update, unchanged configuration and changed XML context lifecycle.
 `--javascript` additionally executes the separate provider bundle's GraalJS engine,
 using `Java.extend` for a Camel Processor and the injected Vertx/rebind objects.
 
+`--dsl java`, `--dsl yaml` or `--dsl both` also updates the actual configurable
+router to the selected DSL. Each format must replace and stop the old context,
+deliver a producer payload, execute the custom Groovy/Vertx script and receive an
+independent MQTT message through the real cloud callback. This tests the fork's
+OSGi-aware Java compiler and YAML bundle dependencies in the complete runtime.
+
+`--shared-yaml` checks that Camel and the YOFC OPC UA Server bundle resolve the
+same SnakeYAML Engine class from `org.snakeyaml.engine:3.0.1`, and executes the
+server bundle's actual Jackson YAML read/write path. `--additional-bundle PATH`
+adds a copied standalone library to the owned configuration; repeatable
+`--bundle-overlay SYMBOLIC_NAME=PATH` can replace another existing test consumer.
+
 `--browser` pauses after writing `camel-browser-ready.json`. In the real console,
 select its router, switch the language to Groovy, paste the provided initCode into
 ACE, validate, and apply the configuration. Record the completed UI actions and

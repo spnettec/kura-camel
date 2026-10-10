@@ -96,6 +96,9 @@ public final class ForkProbe implements BundleActivator {
             CamelContext camel = readyContext(context, routerPid, "groovy-v1");
             require(camel.getVersion().equals("4.20.0"), "Fork Camel version");
             evidence.put("camelVersion", camel.getVersion()); evidence.put("filePrecedencePassed", true);
+            if (Boolean.getBoolean("kura.acceptance.sharedYaml")) {
+                sharedYaml(context, evidence);
+            }
             try (MqttClient observer = new MqttClient(broker, observerId, new MemoryPersistence())) {
                 var queue = new LinkedBlockingQueue<Packet>();
                 observer.setCallback(new MqttCallback() {
@@ -168,6 +171,26 @@ public final class ForkProbe implements BundleActivator {
                         scriptMessage(edited, queue, base, "-next", nonce, http, "groovy-browser-v5", unmarshaller);
                         evidence.put("browserEditedScriptExecuted", true);
                     }
+                    String dsl = System.getProperty("kura.acceptance.dsl", "");
+                    List<String> formats = dsl.equals("both") ? List.of("java", "yaml")
+                            : dsl.isEmpty() ? List.of() : List.of(dsl);
+                    for (String format : formats) {
+                        evidence.put("dslUnderTest", format);
+                        CamelContext previous = current(context, routerPid);
+                        String version = "groovy-dsl-" + format, suffix = "-" + format;
+                        props.put("file.extension", format); props.put("xml.data", dslRoutes(format, nonce, suffix));
+                        props.put("scriptEngineName", "Groovy"); props.put("initCode", script(version));
+                        configuration.updateConfiguration(routerPid, new HashMap<>(props), false);
+                        CamelContext loaded = readyContext(context, routerPid, version);
+                        require(loaded != previous && previous.isStopped(), "Changed DSL replaces and stops context");
+                        String body = "dsl-" + format + "-" + nonce;
+                        send(loaded, "direct:out-" + nonce, body);
+                        require(Arrays.equals(body.getBytes(StandardCharsets.UTF_8), receive(queue, base + "out" + suffix,
+                                unmarshaller, "Actual " + format + " DSL producer").getBody()), "DSL producer exact body");
+                        scriptMessage(loaded, queue, base, suffix, nonce, http, version, unmarshaller);
+                        inbound(observer, queue, base, suffix, nonce, marshaller, unmarshaller);
+                        evidence.put(format + "DslConfigurationAndDeliveryPassed", true);
+                    }
                 } finally { if (observer.isConnected()) observer.disconnect(); }
             }
             evidence.put("routerPid", routerPid); evidence.put("cloudPid", cloudPid); evidence.put("clientId", client); evidence.put("observerId", observerId);
@@ -195,6 +218,28 @@ public final class ForkProbe implements BundleActivator {
         catch (Exception error) { error.printStackTrace(); }
     }
 
+    private static void sharedYaml(BundleContext context, Map<String, Object> evidence) throws Exception {
+        Bundle camel = Arrays.stream(context.getBundles()).filter(b -> b.getSymbolicName().equals("org.eclipse.kura.camel")).findFirst().orElseThrow();
+        Bundle opcua = Arrays.stream(context.getBundles()).filter(b -> b.getSymbolicName()
+                .equals("com.yofc.iot.yofc-iot-apps-opcuaserver")).findFirst().orElseThrow();
+        Class<?> engine = camel.loadClass("org.snakeyaml.engine.v2.api.LoadSettings");
+        require(engine == opcua.loadClass(engine.getName()), "Camel and YOFC share the same Engine class");
+        Bundle owner = FrameworkUtil.getBundle(engine);
+        require(owner != null && owner.getSymbolicName().equals("org.snakeyaml.engine")
+                && owner.getVersion().toString().equals("3.0.1"), "Public SnakeYAML Engine provider");
+        Class<?> jsonFactory = opcua.loadClass("tools.jackson.core.TokenStreamFactory");
+        Object yamlFactory = opcua.loadClass("tools.jackson.dataformat.yaml.YAMLFactory").getConstructor().newInstance();
+        Class<?> mapperClass = opcua.loadClass("tools.jackson.databind.ObjectMapper");
+        Object mapper = mapperClass.getConstructor(jsonFactory).newInstance(yamlFactory);
+        var read = mapperClass.getMethod("readValue", String.class, Class.class);
+        Object value = read.invoke(mapper, "public-engine: true\nmessage: shared-中文\n", Map.class);
+        require(value instanceof Map<?, ?> map && Boolean.TRUE.equals(map.get("public-engine"))
+                && "shared-中文".equals(map.get("message")), "YOFC actual YAML parser reads public Engine");
+        String encoded = (String) mapperClass.getMethod("writeValueAsString", Object.class).invoke(mapper, value);
+        require(value.equals(read.invoke(mapper, encoded, Map.class)), "YOFC YAML serialization round trip");
+        evidence.put("sharedYamlEngine", Map.of("symbolicName", owner.getSymbolicName(), "version", owner.getVersion().toString(),
+                "sameClassIdentity", true, "yofcYamlRoundTripPassed", true));
+    }
     private static String script(String version) {
         return """
                 import org.apache.camel.Processor
@@ -226,6 +271,47 @@ public final class ForkProbe implements BundleActivator {
                   <route id="in"><from uri="acceptance-cloud:FULL_CAMEL/in%s"/><removeHeaders pattern="CamelKuraCloud.*"/><to uri="acceptance-cloud:FULL_CAMEL/echo%s?qos=1"/></route>
                 </routes>
                 """.formatted(nonce, suffix, nonce, suffix, suffix, suffix);
+    }
+    private static String dslRoutes(String format, String nonce, String suffix) {
+        return switch (format) {
+        case "java" -> """
+                import org.apache.camel.builder.RouteBuilder;
+                public class ForkAcceptanceRoutes extends RouteBuilder {
+                    public void configure() {
+                        from("direct:out-%s").routeId("out").to("acceptance-cloud:FULL_CAMEL/out%s?qos=1");
+                        from("direct:script-%s").routeId("script").process("probeDispatcher")
+                            .to("acceptance-cloud:FULL_CAMEL/script%s?qos=1");
+                        from("acceptance-cloud:FULL_CAMEL/in%s").routeId("in").removeHeaders("CamelKuraCloud.*")
+                            .to("acceptance-cloud:FULL_CAMEL/echo%s?qos=1");
+                    }
+                }
+                """.formatted(nonce, suffix, nonce, suffix, suffix, suffix);
+        case "yaml" -> """
+                - route:
+                    id: out
+                    from:
+                      uri: direct:out-%s
+                      steps:
+                        - to: acceptance-cloud:FULL_CAMEL/out%s?qos=1
+                - route:
+                    id: script
+                    from:
+                      uri: direct:script-%s
+                      steps:
+                        - process:
+                            ref: probeDispatcher
+                        - to: acceptance-cloud:FULL_CAMEL/script%s?qos=1
+                - route:
+                    id: in
+                    from:
+                      uri: acceptance-cloud:FULL_CAMEL/in%s
+                      steps:
+                        - removeHeaders:
+                            pattern: CamelKuraCloud.*
+                        - to: acceptance-cloud:FULL_CAMEL/echo%s?qos=1
+                """.formatted(nonce, suffix, nonce, suffix, suffix, suffix);
+        default -> throw new IllegalArgumentException(format);
+        };
     }
     private static String javascript(String version) {
         return """

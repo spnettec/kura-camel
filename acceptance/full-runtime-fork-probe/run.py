@@ -49,8 +49,12 @@ def main():
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--javascript", action="store_true")
     parser.add_argument("--browser", action="store_true")
+    parser.add_argument("--dsl", choices=("java", "yaml", "both"))
+    parser.add_argument("--shared-yaml", action="store_true")
     parser.add_argument("--camel-bundle", type=Path)
     parser.add_argument("--camel-xml-bundle", type=Path)
+    parser.add_argument("--bundle-overlay", action="append", default=[], metavar="SYMBOLIC_NAME=PATH")
+    parser.add_argument("--additional-bundle", action="append", type=Path, default=[])
     args = parser.parse_args()
     for name in ("runtime", "template_profile", "archive", "java", "broker_module"):
         setattr(args, name, getattr(args, name).resolve())
@@ -72,6 +76,17 @@ def main():
         if bundle:
             overlays[symbolic_name] = args.archive / (symbolic_name + ".jar")
             shutil.copy2(bundle, overlays[symbolic_name])
+    for spec in args.bundle_overlay:
+        symbolic_name, source = spec.split("=", 1)
+        if symbolic_name in overlays or not re.fullmatch(r"[A-Za-z0-9_.-]+", symbolic_name):
+            parser.error("Invalid or duplicate bundle overlay: " + symbolic_name)
+        overlays[symbolic_name] = args.archive / (symbolic_name + ".jar")
+        shutil.copy2(Path(source).resolve(), overlays[symbolic_name])
+    additional = []
+    for index, source in enumerate(args.additional_bundle):
+        destination = args.archive / ("additional-" + str(index) + "-" + source.name)
+        shutil.copy2(source.resolve(), destination)
+        additional.append(destination)
     home = args.archive / "profile"
     shutil.copytree(args.template_profile, home, ignore=shutil.ignore_patterns("logs", "tmp", "*-result.json"))
     (home / "logs").mkdir()
@@ -118,7 +133,8 @@ def main():
                     matches = [uri for uri in candidates if content.count(uri) == 1]
                     assert len(matches) == 1
                     content = content.replace(matches[0], overlay.as_uri())
-                content = re.sub(r"(?m)^osgi.bundles=(.*)$", lambda m: m.group(0) + ",reference:" + helper.as_uri() + "@6:start", content)
+                additions = "".join(",reference:" + path.as_uri() + "@5:start" for path in additional)
+                content = re.sub(r"(?m)^osgi.bundles=(.*)$", lambda m: m.group(0) + additions + ",reference:" + helper.as_uri() + "@6:start", content)
             (configuration / file.name).write_text(content)
     requests = []
 
@@ -160,6 +176,8 @@ def main():
                        "-Dkura.acceptance.broker=" + uri, "-Dkura.acceptance.http=http://127.0.0.1:" + str(http.server_port),
                        "-Dkura.acceptance.javascript=" + str(args.javascript).lower(),
                        "-Dkura.acceptance.browser=" + str(args.browser).lower(),
+                       "-Dkura.acceptance.dsl=" + (args.dsl or ""),
+                       "-Dkura.acceptance.sharedYaml=" + str(args.shared_yaml).lower(),
                        "-jar", str(args.runtime / "launcher.jar"), "-configuration", str(configuration),
                        "-install", str(args.runtime), "-console", "-consoleLog"]
             (args.archive / "command.json").write_text(json.dumps(command, indent=2) + "\n")
@@ -193,12 +211,14 @@ def main():
     result["broker"] = json.loads(final.read_text()) if final.exists() else {"stopped": False}
     if result.get("passed"):
         expected = {result["clientId"], result["observerId"]}
-        expected_http = 4 + int(args.javascript) + int(args.browser)
+        expected_http = 4 + int(args.javascript) + int(args.browser) + (2 if args.dsl == "both" else int(bool(args.dsl)))
         if not expected.issubset(result["broker"].get("authenticatedClients", [])) or len(requests) != expected_http or any(forced):
             result.update(passed=False, error="Independent broker/HTTP/cleanup evidence mismatch")
     result["helperSha256"] = sha(helper)
     if overlays:
         result["productionOverlaySha256"] = {name: sha(path) for name, path in overlays.items()}
+    if additional:
+        result["additionalBundleSha256"] = {path.name: sha(path) for path in additional}
     result["sources"] = {str(p.relative_to(module)): sha(p) for p in module.rglob("*") if p.is_file() and "target" not in p.relative_to(module).parts}
     result["brokerSourceSha256"] = sha(args.broker_module / "src/test/java/org/eclipse/kura/cloud/testing/fullruntime/AcceptanceBroker.java")
     result["logs"] = {f: sha(args.archive / f) for f in ("console.log", "broker.log", "profile/logs/kura.log") if (args.archive / f).is_file()}
