@@ -878,6 +878,25 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-yaml-dsl-common</artifactId>
+      <version>4.20.0</version>
+      <exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-yaml-dsl-deserializers</artifactId>
+      <version>4.20.0</version>
+      <exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.snakeyaml</groupId>
+      <artifactId>snakeyaml-engine</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+      <exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions>
+    </dependency>
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-pool2</artifactId>
       <version>2.12.1</version>
@@ -1117,6 +1136,8 @@
           <include>lib/camel-xml-io-dsl.jar</include>
           <include>lib/camel-yaml-io.jar</include>
           <include>lib/camel-yaml-dsl.jar</include>
+          <include>lib/camel-yaml-dsl-common.jar</include>
+          <include>lib/camel-yaml-dsl-deserializers.jar</include>
           <include>lib/camel-java-joor-dsl.jar</include>
           <include>lib/camel-joor.jar</include>
           <include>lib/joor.jar</include>
@@ -1595,6 +1616,20 @@
                   <destFileName>camel-yaml-io.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
+                  <groupId>org.apache.camel</groupId>
+                  <artifactId>camel-yaml-dsl-common</artifactId>
+                  <version>4.20.0</version>
+                  <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                  <destFileName>camel-yaml-dsl-common.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.camel</groupId>
+                  <artifactId>camel-yaml-dsl-deserializers</artifactId>
+                  <version>4.20.0</version>
+                  <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                  <destFileName>camel-yaml-dsl-deserializers.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
                   <groupId>org.apache.httpcomponents.client5</groupId>
                   <artifactId>httpclient5</artifactId>
                   <version>5.5.2</version>
@@ -2020,6 +2055,20 @@
                   <version>4.20.0</version>
                   <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                   <destFileName>camel-yaml-io.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.camel</groupId>
+                  <artifactId>camel-yaml-dsl-common</artifactId>
+                  <version>4.20.0</version>
+                  <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
+                  <destFileName>camel-yaml-dsl-common.jar</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.camel</groupId>
+                  <artifactId>camel-yaml-dsl-deserializers</artifactId>
+                  <version>4.20.0</version>
+                  <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
+                  <destFileName>camel-yaml-dsl-deserializers.jar</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.apache.httpcomponents.client5</groupId>
