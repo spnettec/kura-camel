@@ -7,7 +7,7 @@ dependencies are provided by the application. Handwritten metadata is preserved;
 optional bundle overlays allow a production repair to be tested without rebuilding
 or modifying the stopped runtime.
 
-The actual XML router, ConfigurationService, Camel 4.20, Kapua cloud stack,
+The actual configurable router, ConfigurationService, Camel 4.22.1, Kapua cloud stack,
 Groovy/Vertx WebClient bindings, rebind helper and file watcher execute here.
 Assertions cover KuraPayload/string/binary production routing, inbound cloud
 callbacks, file precedence, script hot update on the same context, inline script

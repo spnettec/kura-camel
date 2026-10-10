@@ -51,6 +51,7 @@ def main():
     parser.add_argument("--browser", action="store_true")
     parser.add_argument("--dsl", choices=("java", "yaml", "both"))
     parser.add_argument("--shared-yaml", action="store_true")
+    parser.add_argument("--vertx", action="store_true")
     parser.add_argument("--camel-bundle", type=Path)
     parser.add_argument("--camel-xml-bundle", type=Path)
     parser.add_argument("--bundle-overlay", action="append", default=[], metavar="SYMBOLIC_NAME=PATH")
@@ -178,6 +179,7 @@ def main():
                        "-Dkura.acceptance.browser=" + str(args.browser).lower(),
                        "-Dkura.acceptance.dsl=" + (args.dsl or ""),
                        "-Dkura.acceptance.sharedYaml=" + str(args.shared_yaml).lower(),
+                       "-Dkura.acceptance.vertx=" + str(args.vertx).lower(),
                        "-jar", str(args.runtime / "launcher.jar"), "-configuration", str(configuration),
                        "-install", str(args.runtime), "-console", "-consoleLog"]
             (args.archive / "command.json").write_text(json.dumps(command, indent=2) + "\n")

@@ -5,11 +5,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.net.ServerSocket;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 import com.google.gson.Gson;
+import io.vertx.core.Vertx;
+import io.vertx.core.internal.VertxInternal;
+import io.vertx.ext.web.Router;
 import org.apache.camel.CamelContext;
 import org.eclipse.kura.cloud.CloudService;
 import org.eclipse.kura.cloudconnection.CloudConnectionManager;
@@ -94,10 +103,13 @@ public final class ForkProbe implements BundleActivator {
             props.put("initCode.file", script.toString()); props.put("disableJmx", true);
             configuration.createFactoryConfiguration(ROUTER, routerPid, props, true); routerCreated = true;
             CamelContext camel = readyContext(context, routerPid, "groovy-v1");
-            require(camel.getVersion().equals("4.20.0"), "Fork Camel version");
+            require(camel.getVersion().equals("4.22.1"), "Fork Camel version");
             evidence.put("camelVersion", camel.getVersion()); evidence.put("filePrecedencePassed", true);
             if (Boolean.getBoolean("kura.acceptance.sharedYaml")) {
                 sharedYaml(context, evidence);
+            }
+            if (Boolean.getBoolean("kura.acceptance.vertx")) {
+                yofcVertx(context, configuration, nonce, evidence);
             }
             try (MqttClient observer = new MqttClient(broker, observerId, new MemoryPersistence())) {
                 var queue = new LinkedBlockingQueue<Packet>();
@@ -218,6 +230,55 @@ public final class ForkProbe implements BundleActivator {
         catch (Exception error) { error.printStackTrace(); }
     }
 
+    private void yofcVertx(BundleContext context, ConfigurationService configuration, String nonce,
+            Map<String, Object> evidence) throws Exception {
+        require(VertxInternal.version().equals("5.2.1"), "Actual upgraded Vertx implementation");
+        ServiceReference<Vertx> ref = context.getServiceReferences(Vertx.class, null).stream()
+                .filter(r -> r.getBundle().getSymbolicName().equals("com.yofc.iot.yofc-iot-api-comp"))
+                .findFirst().orElseThrow();
+        references.add(ref);
+        Vertx vertx = context.getService(ref);
+        require(vertx != null, "Actual YOFC Vertx service");
+        var bus = vertx.eventBus();
+        var consumer = bus.<String>consumer("acceptance.upgrade." + nonce).handler(message -> message.reply("yofc-eventbus-" + message.body()));
+        try {
+            consumer.completion().toCompletionStage().toCompletableFuture().get(5, TimeUnit.SECONDS);
+            var response = bus.<String>request(consumer.address(), nonce).toCompletionStage().toCompletableFuture().get(5, TimeUnit.SECONDS);
+            require(("yofc-eventbus-" + nonce).equals(response.body()), "YOFC event bus round trip");
+        } finally { consumer.unregister().toCompletionStage().toCompletableFuture().get(5, TimeUnit.SECONDS); }
+        Router router = service(context, Router.class, null);
+        String path = "/acceptance-upgrade/" + nonce;
+        boolean virtual = ((VertxInternal) vertx).isVirtualThreadAvailable();
+        var route = router.get(path).handler(request -> request.response()
+                .end("yofc-http-" + nonce + "|virtual=" + Thread.currentThread().isVirtual()));
+        String pid = "com.yofc.vertx.osgi.VertxActivator";
+        Map<String, Object> original = new HashMap<>(configuration.getComponentConfiguration(pid).getConfigurationProperties());
+        int port;
+        try (ServerSocket socket = new ServerSocket(0, 1, java.net.InetAddress.getLoopbackAddress())) { port = socket.getLocalPort(); }
+        try {
+            configuration.updateConfiguration(pid, new HashMap<>(Map.of("enabled", true, "port", port)), false);
+            try (HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(2)).build()) {
+                HttpRequest request = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path)).timeout(Duration.ofSeconds(3)).GET().build();
+                String expected = "yofc-http-" + nonce + "|virtual=" + virtual;
+                long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(15);
+                while (true) {
+                    try {
+                        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                        require(response.statusCode() == 200 && expected.equals(response.body()), "YOFC HTTP and actual threading model");
+                        break;
+                    } catch (java.io.IOException connection) {
+                        if (System.nanoTime() >= deadline) throw connection;
+                        Thread.sleep(50);
+                    }
+                }
+            }
+            evidence.put("yofcVertx", Map.of("version", VertxInternal.version(), "eventBusRoundTripPassed", true,
+                    "actualHttpPassed", true, "virtualThreadAvailable", virtual, "actualThreadingModelPassed", true));
+        } finally {
+            configuration.updateConfiguration(pid, original, false);
+            route.remove();
+        }
+    }
     private static void sharedYaml(BundleContext context, Map<String, Object> evidence) throws Exception {
         Bundle camel = Arrays.stream(context.getBundles()).filter(b -> b.getSymbolicName().equals("org.eclipse.kura.camel")).findFirst().orElseThrow();
         Bundle opcua = Arrays.stream(context.getBundles()).filter(b -> b.getSymbolicName()

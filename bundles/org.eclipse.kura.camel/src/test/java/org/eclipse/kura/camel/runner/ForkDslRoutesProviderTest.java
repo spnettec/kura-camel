@@ -7,7 +7,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/** Fork DSL contract: load and execute each supported format with Camel 4.20. */
+/** Fork DSL contract: load and execute each supported format. */
 class ForkDslRoutesProviderTest {
     @ParameterizedTest
     @ValueSource(strings = { "xml", "java", "yaml" })
