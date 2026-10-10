@@ -249,6 +249,7 @@ public final class ForkProbe implements BundleActivator {
         Router router = service(context, Router.class, null);
         String path = "/acceptance-upgrade/" + nonce;
         boolean virtual = ((VertxInternal) vertx).isVirtualThreadAvailable();
+        require(virtual, "Java21 multi-release Vertx virtual thread support");
         var route = router.get(path).handler(request -> request.response()
                 .end("yofc-http-" + nonce + "|virtual=" + Thread.currentThread().isVirtual()));
         String pid = "com.yofc.vertx.osgi.VertxActivator";
