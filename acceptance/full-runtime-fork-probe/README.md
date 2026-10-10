@@ -27,6 +27,11 @@ server bundle's actual Jackson YAML read/write path. `--additional-bundle PATH`
 adds a copied standalone library to the owned configuration; repeatable
 `--bundle-overlay SYMBOLIC_NAME=PATH` can replace another existing test consumer.
 
+`--vertx` uses YOFC's actual registered Vertx 5.2.1 service for EventBus
+request/reply and HTTP. On the required JDK21 it also requires virtual-thread
+availability and confirms the HTTP handler actually runs on a virtual thread.
+This catches a wrapper that retains Java21 classes but loses `Multi-Release`.
+
 `--browser` pauses after writing `camel-browser-ready.json`. In the real console,
 select its router, switch the language to Groovy, paste the provided initCode into
 ACE, validate, and apply the configuration. Record the completed UI actions and
