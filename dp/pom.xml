@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent><groupId>org.eclipse.kura</groupId><artifactId>kura-build-parent</artifactId><version>6.0.0-SNAPSHOT</version><relativePath/></parent>
-
+    <parent>
+        <groupId>org.eclipse.kura</groupId>
+        <artifactId>kura-build-parent</artifactId>
+        <version>6.0.0-SNAPSHOT</version>
+        <relativePath />
+    </parent>
     <groupId>org.eclipse.kura</groupId>
     <artifactId>kura-camel.dp</artifactId>
     <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Kura Camel Deployment Package</name>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.eclipse.kura</groupId>
@@ -47,7 +47,6 @@
             <version>4.4.16</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -64,7 +63,6 @@
             </plugin>
         </plugins>
     </build>
-
     <pluginRepositories>
         <pluginRepository>
             <id>jitpack.io</id>
@@ -72,3 +70,4 @@
         </pluginRepository>
     </pluginRepositories>
 </project>
+
